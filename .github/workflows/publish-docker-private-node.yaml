@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: wavesplatform/waves-private-node
+          images: imashonskiy/waves-test
 
       # Build and push Docker image with Buildx
       # https://github.com/docker/build-push-action
