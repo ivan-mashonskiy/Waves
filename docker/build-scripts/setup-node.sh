@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Create data directories
+mkdir -p $WVDATA $WVLOG
+
 # Create user
 groupadd -r waves --gid=999
 useradd -r -g waves --uid=999 --home-dir=$WVDATA --shell=/bin/bash waves
