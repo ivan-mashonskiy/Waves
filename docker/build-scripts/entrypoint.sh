@@ -60,4 +60,5 @@ JAVA_OPTS="-Dlogback.stdout.level=${WAVES_LOG_LEVEL}
   -Dlogback.file.directory=$WVLOG
   -Dconfig.override_with_env_vars=true
   ${JAVA_OPTS}
-  -cp '$WAVES_INSTALL_PATH/lib/plugins/*:$WAVES_INSTALL_PATH/lib/*:$WAVES_INSTALL_PATH/grpc-server/lib/*'" exec gosu waves waves "$WAVES_CONFIG"
+  -cp '$WAVES_INSTALL_PATH/lib/plugins/*:$WAVES_INSTALL_PATH/lib/*:$WAVES_INSTALL_PATH/grpc-server/lib/*'" exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
+
