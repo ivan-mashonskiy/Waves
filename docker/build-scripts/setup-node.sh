@@ -17,7 +17,7 @@ if [[ $ENABLE_GRPC == "true" ]]; then
 fi
 
 if [[ $PRIVATE_NODE == "true" ]]; then
-  mkdir -p /etc/waves && cp /tmp/waves.custom.conf /etc/waves/waves.conf
+  mkdir -p /etc/waves && cp /tmp/waves.conf /etc/waves/waves.conf
 fi
 
 # Set permissions
