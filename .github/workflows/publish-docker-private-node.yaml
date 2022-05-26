@@ -78,5 +78,5 @@ jobs:
           tags: ${{ steps.meta-private.outputs.tags }}
           build-args: |
             NODE_TAG=${{ github.event.release.tag_name }}
-            PRIVATE_NODE="true"
-            WAVES_NETWORK="custom"
+            PRIVATE_NODE=true
+            WAVES_NETWORK=custom
