@@ -15,12 +15,12 @@ if [ "$user" = '0' ]; then
   find $WVLOG \! -user waves -exec chown waves '{}' +
 fi
 
-if [[ $PRIVATE_NODE == "true" ]]; then
-  WAVES_NETWORK="custom"
+if [[ $PRIVATE_NODE == true ]]; then
+  WAVES_NETWORK=custom
 fi
 
 ls /etc/waves
-[ -z "${WAVES_CONFIG}" ] && WAVES_CONFIG="/etc/waves/waves.conf"
+[ -z "${WAVES_CONFIG}" ] && WAVES_CONFIG=/etc/waves/waves.conf
 if [[ ! -f "$WAVES_CONFIG" ]]; then
   logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
   if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
