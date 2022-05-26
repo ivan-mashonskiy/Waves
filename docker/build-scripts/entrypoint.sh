@@ -19,7 +19,6 @@ if [[ $PRIVATE_NODE == true ]]; then
   WAVES_NETWORK=custom
 fi
 
-ls /etc/waves
 [ -z "${WAVES_CONFIG}" ] && WAVES_CONFIG=/etc/waves/waves.conf
 if [[ ! -f "$WAVES_CONFIG" ]]; then
   logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
@@ -60,6 +59,7 @@ JAVA_OPTS="-Dlogback.stdout.level=${WAVES_LOG_LEVEL}
   -Xmx${WAVES_HEAP_SIZE}
   -Dlogback.file.directory=$WVLOG
   -Dconfig.override_with_env_vars=true
-  ${JAVA_OPTS}
-  -cp '$WAVES_INSTALL_PATH/lib/plugins/*:$WAVES_INSTALL_PATH/lib/*:$WAVES_INSTALL_PATH/grpc-server/lib/*'" exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
+  ${JAVA_OPTS}"
+
+exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
 
