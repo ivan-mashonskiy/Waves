@@ -10,15 +10,15 @@ useradd -r -g waves --uid=999 --home-dir=$WVDATA --shell=/bin/bash waves
 # Unpack tgz packages
 mkdir -p $WAVES_INSTALL_PATH
 tar zxvf /tmp/waves.tgz -C $WAVES_INSTALL_PATH --strip-components=1
-if [[ $ENABLE_GRPC == "true" ]]; then
+if [[ $ENABLE_GRPC == true ]]; then
   echo "Unpacking gRPC server"
   mkdir -p $WAVES_INSTALL_PATH/grpc-server
   tar zxvf /tmp/waves-grpc-server.tgz -C $WAVES_INSTALL_PATH/grpc-server --strip-components=1
 fi
 
 echo $PRIVATE_NODE
-if [[ $PRIVATE_NODE == "true" ]]; then
-  echo "123"
+if [[ $PRIVATE_NODE == true ]]; then
+  echo 123
   mkdir -p /etc/waves
   ls /etc/waves
   cp /tmp/waves.conf /etc/waves/waves.conf
