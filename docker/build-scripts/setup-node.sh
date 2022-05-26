@@ -16,6 +16,7 @@ if [[ $ENABLE_GRPC == "true" ]]; then
   tar zxvf /tmp/waves-grpc-server.tgz -C $WAVES_INSTALL_PATH/grpc-server --strip-components=1
 fi
 
+echo $PRIVATE_NODE
 if [[ $PRIVATE_NODE == "true" ]]; then
   echo "123"
   mkdir -p /etc/waves
