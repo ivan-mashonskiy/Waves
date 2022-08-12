@@ -24,7 +24,7 @@ cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
 chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
 
 if [[ ! -f "$WAVES_CONFIG" ]]; then
-  logEcho "Custom '$WAVES_CONFIG' not found. Using a default one."
+  logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
   if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
     cp /tmp/waves.conf.template $WAVES_CONFIG
   else
