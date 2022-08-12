@@ -31,10 +31,10 @@ chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
 if [[ ! -f "$WAVES_CONFIG" ]]; then
   logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
   if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
+    # don't use leading whitespaces inside of heredoc because of restrictions
     eval "cat <<EOF
-    $(</tmp/waves.conf.template)
-    EOF
-    " 2> /dev/null > $WAVES_CONFIG
+$(</tmp/waves.conf.template)
+EOF" 2> /dev/null > $WAVES_CONFIG
   else
     echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
     exit 1
