@@ -1,7 +1,9 @@
 #!/bin/bash
 
+NETWORKS="mainnet testnet stagenet custom"
+
 # Create data directories
-mkdir -p $WVDATA $WVLOG
+mkdir -p $WVDATA $WVLOG /etc/waves
 
 # Create user
 groupadd -r waves --gid=999
@@ -21,10 +23,27 @@ if [[ $PRIVATE_NODE == true ]]; then
 fi
 
 # Set permissions
-chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 777 $WVDATA $WVLOG
+chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 755 $WVDATA $WVLOG
 
 cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
 chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
+
+if [[ ! -f "$WAVES_CONFIG" ]]; then
+  logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
+  if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
+    eval "cat <<EOF
+    $(</tmp/waves.conf.template)
+    EOF
+    " 2> /dev/null > $WAVES_CONFIG
+  else
+    echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
+    exit 1
+  fi
+else
+  echo "Found custom '$WAVES_CONFIG'. Using it."
+fi
+
+cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
 # Cleanup
 rm -rf /tmp/*
