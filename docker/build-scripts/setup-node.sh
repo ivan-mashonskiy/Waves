@@ -17,11 +17,6 @@ if [[ $ENABLE_GRPC == true ]]; then
   tar zxvf /tmp/waves-grpc-server.tgz -C $WAVES_INSTALL_PATH --strip-components=1
 fi
 
-if [[ $PRIVATE_NODE == true ]]; then
-  mkdir -p /etc/waves
-  cp /tmp/waves.conf /etc/waves/waves.conf
-fi
-
 # Set permissions
 chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 755 $WVDATA $WVLOG
 
@@ -29,12 +24,9 @@ cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
 chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
 
 if [[ ! -f "$WAVES_CONFIG" ]]; then
-  logEcho "Custom '$WAVES_CONFIG' not found. Using a default one for '${WAVES_NETWORK,,}' network."
+  logEcho "Custom '$WAVES_CONFIG' not found. Using a default one."
   if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
-    # don't use leading whitespaces inside of heredoc because of restrictions
-    eval "cat <<EOF
-$(</tmp/waves.conf.template)
-EOF" 2> /dev/null > $WAVES_CONFIG
+    cp /tmp/waves.conf.template $WAVES_CONFIG
   else
     echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
     exit 1
