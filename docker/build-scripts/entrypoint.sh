@@ -7,6 +7,7 @@ logEcho() {
 
 [ -n "${WAVES_WALLET_PASSWORD}" ] && JAVA_OPTS="${JAVA_OPTS} -Dwaves.wallet.password=${WAVES_WALLET_PASSWORD}"
 [ -n "${WAVES_WALLET_SEED}" ] && JAVA_OPTS="${JAVA_OPTS} -Dwaves.wallet.seed=${WAVES_WALLET_SEED}"
+JAVA_OPTS="${JAVA_OPTS} -Dwaves.blockchain.type=${WAVES_NETWORK}"
 JAVA_OPTS="${JAVA_OPTS} -Dwaves.directory=$WVDATA"
 
 logEcho "Node is starting..."
