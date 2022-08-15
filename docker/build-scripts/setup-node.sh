@@ -1,5 +1,7 @@
 #!/bin/bash
 
+NETWORKS="mainnet testnet stagenet custom"
+
 # Create data directories
 mkdir -p $WVDATA $WVLOG /etc/waves
 
