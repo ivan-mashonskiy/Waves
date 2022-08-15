@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NETWORKS="mainnet testnet stagenet custom"
+NETWORKS="mainnet testnet stagenet"
 
 # Create data directories
 mkdir -p $WVDATA $WVLOG /etc/waves
@@ -28,9 +28,10 @@ if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
 eval "cat <<EOF
 $(</tmp/waves.conf.template)
 EOF" 2> /dev/null > $WAVES_CONFIG
-  else
-    echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
-    exit 1
+
+else
+  echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
+  exit 1
 fi
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
