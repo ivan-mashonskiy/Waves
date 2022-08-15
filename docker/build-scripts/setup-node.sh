@@ -21,9 +21,15 @@ chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 755 $WVDATA $WV
 cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
 chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
 
+if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
+  # don't use indentation for heredoc because of its restrictions
 eval "cat <<EOF
 $(</tmp/waves.conf.template)
 EOF" 2> /dev/null > $WAVES_CONFIG
+  else
+    echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
+    exit 1
+fi
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
