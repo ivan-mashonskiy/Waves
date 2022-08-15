@@ -11,7 +11,7 @@ if [[ ! -f "$WAVES_CONFIG" ]]; then
   if [[ $NETWORKS == *"${WAVES_NETWORK,,}"* ]]; then
     # don't use indentation for heredoc because of its restrictions
 eval "cat <<EOF
-$(</etc/waves/waves.conf.template)
+$CONFIG_TEMPLATE
 EOF" 2> /dev/null > $WAVES_CONFIG
   else
     echo "Network '${WAVES_NETWORK,,}' not found. Exiting."
