@@ -1,6 +1,5 @@
 #!/bin/bash
 shopt -s nullglob
-NETWORKS="mainnet testnet stagenet custom"
 
 logEcho() {
   echo $1 | gosu waves tee -a /var/log/waves/waves.log
