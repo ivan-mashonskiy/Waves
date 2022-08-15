@@ -23,7 +23,7 @@ chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 755 $WVDATA $WV
 cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
 chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
 
-cp /tmp/waves.conf.template $WAVES_CONFIG
+cp /tmp/waves.conf.template /etc/waves/waves.conf.template
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
