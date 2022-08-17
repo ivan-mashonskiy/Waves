@@ -7,7 +7,7 @@ logEcho() {
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
-JAVA_OPTS="${JAVA_OPTS} -J-Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
+JAVA_OPTS="${JAVA_OPTS} -Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
 
 logEcho "Node is starting..."
 logEcho "WAVES_HEAP_SIZE='${WAVES_HEAP_SIZE}'"
@@ -19,7 +19,10 @@ JAVA_OPTS="-Dlogback.stdout.level=${WAVES_LOG_LEVEL}
   -Xmx${WAVES_HEAP_SIZE}
   -Dlogback.file.directory=$WVLOG
   -Dconfig.override_with_env_vars=true
-  ${JAVA_OPTS}"
+  ${JAVA_OPTS}
+  -cp $WAVES_INSTALL_PATH/lib/plugins/*:$WAVES_INSTALL_PATH/lib/*"
 
-exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
+java $JAVA_OPTS com.wavesplatform.Application "$WAVES_CONFIG"
+
+#exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
 
