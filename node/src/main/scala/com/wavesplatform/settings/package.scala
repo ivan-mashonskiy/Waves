@@ -60,37 +60,27 @@ package object settings {
     val sysProps = ConfigFactory.defaultOverrides()
     val external = maybeUserConfig.fold(sysProps)(sysProps.withFallback)
 
-    println(sysProps)
-    println(external)
+    println(System.getProperties)
 
     val cmdDefaults =
       Try(external.getConfig("waves.defaults"))
         .getOrElse(ConfigFactory.empty())
         .atPath("waves")
 
-    println(cmdDefaults)
-    
     val withApp = external.withFallback(cmdDefaults).withFallback(ConfigFactory.defaultApplication())
 
-    println(withApp)
-    
     val networkDefaults = {
       val network = withApp.getString("waves.blockchain.type").toLowerCase
       withApp.getConfig(s"waves.defaults.$network")
     }
 
-    println(networkDefaults)
-    
-    val res = external
+    external
       .withFallback(cmdDefaults)
       .withFallback(networkDefaults.atKey("waves"))
       .withFallback(ConfigFactory.parseString(s"waves.directory = ${defaultDirectory(withApp)}"))
       .withFallback(ConfigFactory.defaultApplication())
       .withFallback(ConfigFactory.defaultReference())
       .resolve()
-    
-    println(res)
-    res
   }
 
   def defaultDirectory(config: Config): String = {
