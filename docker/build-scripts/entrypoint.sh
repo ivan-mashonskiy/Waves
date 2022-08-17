@@ -7,6 +7,8 @@ logEcho() {
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
+[ -n "${WAVES_WALLET_PASSWORD}" ] && export CONFIG_FORCE_WAVES_WALLET_PASSWORD=$WAVES_WALLET_PASSWORD
+[ -n "${WAVES_WALLET_SEED}" ] && export CONFIG_FORCE_WAVES_WALLET_SEED=$WAVES_WALLET_SEED
 JAVA_OPTS="${JAVA_OPTS} -Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
 
 logEcho "Node is starting..."
@@ -22,6 +24,3 @@ JAVA_OPTS="-Dlogback.stdout.level=${WAVES_LOG_LEVEL}
   ${JAVA_OPTS}"
 
 java $JAVA_OPTS -cp "${WAVES_INSTALL_PATH}/lib/plugins/*:$WAVES_INSTALL_PATH/lib/*" com.wavesplatform.Application "$WAVES_CONFIG"
-
-#exec gosu waves $WAVES_INSTALL_PATH/bin/waves "$WAVES_CONFIG"
-
