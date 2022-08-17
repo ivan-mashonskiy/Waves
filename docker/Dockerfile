@@ -1,25 +1,31 @@
-#!/bin/bash
+FROM openjdk:11-jre-slim
 
-# Create data directories
-mkdir -p $WVDATA $WVLOG
+ARG ENABLE_GRPC
 
-# Create user
-groupadd -r waves --gid=999
-useradd -r -g waves --uid=999 --home-dir=$WVDATA --shell=/bin/bash waves
+ENV ENABLE_GRPC=${ENABLE_GRPC:-true}
+ENV WAVES_LOG_LEVEL=INFO
+ENV WAVES_HEAP_SIZE=2g
+ENV WAVES_NETWORK=mainnet
 
-# Unpack tgz packages
-mkdir -p $WAVES_INSTALL_PATH
-tar zxvf /tmp/waves.tgz -C $WAVES_INSTALL_PATH --strip-components=1
-if [[ $ENABLE_GRPC == true ]]; then
-  echo "Unpacking gRPC server"
-  tar zxvf /tmp/waves-grpc-server.tgz -C $WAVES_INSTALL_PATH --strip-components=1
-fi
+COPY build-scripts /tmp/
 
-# Set permissions
-chown -R waves:waves $WVDATA $WVLOG $WAVES_INSTALL_PATH && chmod 755 $WVDATA $WVLOG
+# Additional dependencies
+RUN /bin/bash /tmp/setup-deps.sh
 
-cp /tmp/entrypoint.sh $WAVES_INSTALL_PATH/bin/entrypoint.sh
-chmod +x $WAVES_INSTALL_PATH/bin/entrypoint.sh
+# Node files
+ENV WVDATA=/var/lib/waves
+ENV WVLOG=/var/log/waves
+ENV WAVES_INSTALL_PATH=/usr/share/waves
+ENV WAVES_CONFIG=/etc/waves/waves.conf
+COPY target /tmp/
+COPY waves.conf.template $WAVES_CONFIG
+RUN /bin/bash /tmp/setup-node.sh
 
-# Cleanup
-rm -rf /tmp/*
+EXPOSE 6869 6868 6863 6862 6870
+VOLUME $WVDATA
+VOLUME $WVLOG
+VOLUME $WAVES_INSTALL_PATH/lib/plugins
+WORKDIR $WVDATA
+
+STOPSIGNAL SIGINT
+ENTRYPOINT ["/usr/share/waves/bin/entrypoint.sh"]
