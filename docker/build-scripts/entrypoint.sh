@@ -7,7 +7,7 @@ logEcho() {
 
 cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
-JAVA_OPTS="${JAVA_OPTS} -Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
+JAVA_OPTS="${JAVA_OPTS} -J-Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
 
 logEcho "Node is starting..."
 logEcho "WAVES_HEAP_SIZE='${WAVES_HEAP_SIZE}'"
