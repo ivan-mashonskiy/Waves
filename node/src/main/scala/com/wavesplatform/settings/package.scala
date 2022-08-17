@@ -60,7 +60,7 @@ package object settings {
     val sysProps = ConfigFactory.defaultOverrides()
     val external = maybeUserConfig.fold(sysProps)(sysProps.withFallback)
 
-    println(System.getProperties)
+    println(System.getenv())
 
     val cmdDefaults =
       Try(external.getConfig("waves.defaults"))
