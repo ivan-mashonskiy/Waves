@@ -60,6 +60,7 @@ package object settings {
     val sysProps = ConfigFactory.defaultOverrides()
     val external = maybeUserConfig.fold(sysProps)(sysProps.withFallback)
 
+    println(sysProps)
     println(external)
 
     val cmdDefaults =
