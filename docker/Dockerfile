@@ -18,7 +18,7 @@ COPY target /tmp/
 COPY waves.conf.template $WAVES_CONFIG
 
 ARG INCLUDE_GRPC=true
-RUN /bin/bash /tmp/setup-node.sh
+RUN /bin/bash /tmp/setup-node.sh $INCLUDE_GRPC
 
 EXPOSE 6869 6868 6863 6862 6870
 VOLUME $WVDATA
