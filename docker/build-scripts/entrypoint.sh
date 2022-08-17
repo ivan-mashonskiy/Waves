@@ -5,7 +5,7 @@ logEcho() {
   echo $1 | gosu waves tee -a /var/log/waves/waves.log
 }
 
-cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
+#cp $WAVES_INSTALL_PATH/lib/plugins/* $WAVES_INSTALL_PATH/lib/
 
 JAVA_OPTS="${JAVA_OPTS} -Dwaves.defaults.blockchain.type=$WAVES_NETWORK"
 
