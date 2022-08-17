@@ -58,7 +58,7 @@ package object settings {
 
   def loadConfig(maybeUserConfig: Option[Config]): Config = {
     val sysProps = ConfigFactory.defaultOverrides()
-    val external = maybeUserConfig.fold(sysProps)(sysProps.withFallback).resolve()
+    val external = maybeUserConfig.fold(sysProps)(sysProps.withFallback)
 
     val cmdDefaults =
       Try(external.getConfig("waves.defaults"))
