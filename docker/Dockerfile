@@ -47,4 +47,4 @@ VOLUME $WAVES_INSTALL_PATH/lib/plugins
 WORKDIR $WVDATA
 
 STOPSIGNAL SIGINT
-ENTRYPOINT ["$WAVES_INSTALL_PATH/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/share/waves/bin/entrypoint.sh"]
