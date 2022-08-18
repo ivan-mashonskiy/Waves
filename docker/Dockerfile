@@ -4,8 +4,6 @@ ENV WAVES_LOG_LEVEL=INFO
 ENV WAVES_HEAP_SIZE=2g
 ENV WAVES_NETWORK=mainnet
 
-SHELL ["/bin/bash", "-c"]
-
 # Additional dependencies
 RUN mkdir -p /usr/share/man/man1; \
     apt-get update && apt-get install -y wget unzip gosu || exit 1; \
