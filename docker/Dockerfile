@@ -5,8 +5,7 @@ ENV WAVES_HEAP_SIZE=2g
 ENV WAVES_NETWORK=mainnet
 
 # Additional dependencies
-RUN mkdir -p /usr/share/man/man1; \
-    apt-get update && apt-get install -y wget unzip gosu || exit 1; \
+RUN apt-get update && apt-get install -y wget unzip gosu || exit 1; \
     export YOURKIT_ARCHIVE="YourKit-JavaProfiler-2021.3-docker.zip"; \
     wget --quiet "https://www.yourkit.com/download/docker/$YOURKIT_ARCHIVE" -P /tmp/ && unzip /tmp/$YOURKIT_ARCHIVE -d /usr/local; \
     # Clean
